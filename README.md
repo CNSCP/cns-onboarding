@@ -13,7 +13,7 @@
 
 This repository contains an application that enables device onboarding, written in [Node.js](https://nodejs.org/en/about). The application is used to configure context and token information before running CNS Dapr in a boot  sequence.
 
-At startup, the application checks for the existence of `CNS_CONTEXT` and if present, no action is taken and the application exits.
+At startup, the application checks for the existence of the `CNS_CONTEXT` environment variable and if present, no action is taken and the application exits.
 
 When running, the application asks a broker for context details and does not terminate until those details are received and the appropriate environment variables are set. At this point, the device may continue booting.
 
@@ -49,24 +49,10 @@ The CNS Onboarding application uses the following environment variables to confi
 
 | Name             | Description                      | Default                |
 |------------------|----------------------------------|------------------------|
-| CNS_BROKER       | Broker service                   | 'padi'                 |
-| CNS_CODE         | Onboarding code sent to broker   | Must be set            |
+| CNS_BROKER       | CNS Broker service               | 'padi'                 |
+| CNS_CODE         | Onboarding code used by broker   | Must be set            |
 
-#### Linux
-
-| Command                              | Description                           |
-|--------------------------------------|---------------------------------------|
-| env                                  | List all variables                    |
-| export [name]=[value]                | Set variable                          |
-| unset [name]                         | Remove variable                       |
-
-#### Windows
-
-| Command                              | Description                           |
-|--------------------------------------|---------------------------------------|
-| set                                  | List all variables                    |
-| set [name]=[value]                   | Set variable                          |
-| set [name]=                          | Remove variable                       |
+Alternatively, variables can be stored in a `.env` file in the project directory.
 
 #### Broker Service
 
@@ -92,7 +78,7 @@ The communication protocol is set via the mode specified in `CNS_PADI_MODE`.
 | Mode             | Description                                               |
 |------------------|-----------------------------------------------------------|
 | http             | Polling using HTTP requests                               |
-| mqtt             | Subscription to a MQTT topic (NYI)                        |
+| mqtt             | Subscription to a MQTT topic                              |
 
 ### Exit codes
 
